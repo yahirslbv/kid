@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import '../../../shared/config/app_secrets.dart';
 
 // ─── MODELO DE PREGUNTA ────────────────────────────────────────────────────────
 class QuizQuestion {
@@ -67,8 +67,8 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() { _isLoading = true; _errorMsg = ''; });
 
     try {
-      final apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
-      if (apiKey.isEmpty) throw Exception('No se encontró GEMINI_API_KEY');
+      final apiKey = AppSecrets.geminiApiKey;
+      if (apiKey.isEmpty) throw Exception('No se configuro GEMINI_API_KEY');
 
       final difficulty = _difficultyLabels[_difficulty];
       final prompt = '''

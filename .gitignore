@@ -48,7 +48,8 @@ app.*.map.json
 # ==========================================
 # Variables de entorno (¡SÚPER IMPORTANTE!)
 .env
-.env*
+.env.*
+!.env.example
 
 # Archivos de configuración local de Firebase / Google
 google-services.json

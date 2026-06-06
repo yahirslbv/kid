@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../activities/screens/addition_subtraction_activity_screen.dart';
 import '../../../shared/widgets/kids/kids_feature_card.dart';
 import '../../../shared/widgets/kids/progress_stars.dart';
 import '../../../shared/widgets/kids/reward_badge.dart';
@@ -91,7 +92,7 @@ class KidsHomeScreen extends StatelessWidget {
                     subtitle: topic.subtitle,
                     icon: topic.icon,
                     color: topic.color,
-                    onTap: () => _showComingSoon(context, topic.title),
+                    onTap: () => _openTopic(context, topic.title),
                   );
                 }, childCount: _topics.length),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -108,7 +109,17 @@ class KidsHomeScreen extends StatelessWidget {
     );
   }
 
-  void _showComingSoon(BuildContext context, String topic) {
+  void _openTopic(BuildContext context, String topic) {
+    if (topic == 'Sumas y restas') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const AdditionSubtractionActivityScreen(),
+        ),
+      );
+      return;
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('$topic estará listo pronto.'),

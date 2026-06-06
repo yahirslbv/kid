@@ -1,12 +1,12 @@
 import 'dart:math'; 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translator/translator.dart';
 import 'package:google_generative_ai/google_generative_ai.dart' as genai; 
+import '../../../shared/config/app_secrets.dart';
 
 class ChatMessage {
   String text; 
@@ -131,9 +131,9 @@ class ChatProvider extends ChangeNotifier {
   }
 
   Future<List<double>> _getEmbedding(String text) async {
-    final apiKey = dotenv.env['GEMINI_API_KEY'];
-    if (apiKey == null || apiKey.isEmpty) {
-      throw Exception('No se encontró GEMINI_API_KEY en el archivo .env');
+    final apiKey = AppSecrets.geminiApiKey;
+    if (apiKey.isEmpty) {
+      throw Exception('No se configuro GEMINI_API_KEY');
     }
 
     final model = genai.GenerativeModel(
@@ -365,9 +365,9 @@ class ChatProvider extends ChangeNotifier {
   }
 
   Future<String> _callGeminiAPI() async {
-    final apiKey = dotenv.env['GEMINI_API_KEY'];
-    if (apiKey == null || apiKey.isEmpty) {
-      throw Exception('No se encontró GEMINI_API_KEY en el archivo .env');
+    final apiKey = AppSecrets.geminiApiKey;
+    if (apiKey.isEmpty) {
+      throw Exception('No se configuro GEMINI_API_KEY');
     }
 
     const model = 'gemini-3-flash-preview';
@@ -417,11 +417,11 @@ class ChatProvider extends ChangeNotifier {
     if (error.contains('429') || error.contains('quota') || error.contains('RESOURCE_EXHAUSTED')) {
       return '⏳ Demasiadas solicitudes seguidas. Espera unos segundos e intenta de nuevo.';
     } else if (error.contains('401') || error.contains('API_KEY') || error.contains('invalid')) {
-      return '🔑 La API Key no es válida. Verifica tu archivo .env.';
+      return 'La API Key no es valida. Verifica tu configuracion local.';
     } else if (error.contains('timeout') || error.contains('TimeoutException')) {
       return '🌐 La conexión tardó demasiado. Revisa la conexión a internet e intenta de nuevo.';
     } else if (error.contains('GEMINI_API_KEY')) {
-      return '⚠️ No se encontró la API Key. Asegúrate de tener el archivo .env configurado.';
+      return 'No se encontro la API Key. Configura GEMINI_API_KEY con --dart-define para usar IA.';
     }
     return '❌ Ocurrió un error. Intenta de nuevo en unos momentos.';
   }

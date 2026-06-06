@@ -73,7 +73,6 @@ flutter:
   generate: true
   
   assets:
-    - .env
     - assets/
 
 # --- CONFIGURACIÓN PARA GENERAR LOS ÍCONOS DE LA APP ---
