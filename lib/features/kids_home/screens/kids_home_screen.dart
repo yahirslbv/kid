@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../activities/screens/addition_subtraction_activity_screen.dart';
+import '../../activities/screens/multiplication_activity_screen.dart';
 import '../../../shared/widgets/kids/kids_feature_card.dart';
 import '../../../shared/widgets/kids/progress_stars.dart';
 import '../../../shared/widgets/kids/reward_badge.dart';
@@ -115,6 +116,16 @@ class KidsHomeScreen extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (_) => const AdditionSubtractionActivityScreen(),
+        ),
+      );
+      return;
+    }
+
+    if (topic == 'Multiplicaciones') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const MultiplicationActivityScreen(),
         ),
       );
       return;

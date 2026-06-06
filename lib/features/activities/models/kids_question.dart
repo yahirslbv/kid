@@ -3,6 +3,7 @@ class KidsQuestion {
   final List<int> options;
   final int correctAnswer;
   final String explanation;
+  final String hint;
   final int level;
 
   const KidsQuestion({
@@ -10,6 +11,7 @@ class KidsQuestion {
     required this.options,
     required this.correctAnswer,
     required this.explanation,
+    required this.hint,
     required this.level,
   });
 }
