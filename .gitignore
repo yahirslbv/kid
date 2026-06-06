@@ -1,0 +1,65 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+/ios/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio artifacts
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ==========================================
+# 🛑 SECRETOS Y CONFIGURACIÓN LOCAL (AÑADIDO)
+# ==========================================
+# Variables de entorno (¡SÚPER IMPORTANTE!)
+.env
+.env*
+
+# Archivos de configuración local de Firebase / Google
+google-services.json
+GoogleService-Info.plist
+firebase_crashlytics_mapping.json
+
+# Archivos de llaves generados localmente
+*.jks
+*.keystore
+key.properties
+
+# Llaves de Firebase (¡No subir nunca!)
+firebase-key.json
+*.json
