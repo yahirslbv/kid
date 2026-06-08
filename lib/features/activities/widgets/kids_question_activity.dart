@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/widgets/kids/progress_stars.dart';
 import '../models/kids_question.dart';
+import '../utils/kids_question_selector.dart';
 
 class KidsQuestionActivity extends StatefulWidget {
   final String title;
@@ -25,8 +26,32 @@ class _KidsQuestionActivityState extends State<KidsQuestionActivity> {
   int? _selectedAnswer;
   bool _answered = false;
   bool _finished = false;
+  late List<KidsQuestion> _questions;
 
-  KidsQuestion get _currentQuestion => widget.questions[_currentIndex];
+  KidsQuestion get _currentQuestion => _questions[_currentIndex];
+
+  @override
+  void initState() {
+    super.initState();
+    _startNewRound();
+  }
+
+  @override
+  void didUpdateWidget(covariant KidsQuestionActivity oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.questions != widget.questions) {
+      _startNewRound();
+    }
+  }
+
+  void _startNewRound() {
+    _questions = selectRandomQuestions(widget.questions);
+    _currentIndex = 0;
+    _score = 0;
+    _selectedAnswer = null;
+    _answered = false;
+    _finished = false;
+  }
 
   void _selectAnswer(int answer) {
     if (_answered) return;
@@ -43,7 +68,7 @@ class _KidsQuestionActivityState extends State<KidsQuestionActivity> {
   void _goNext() {
     if (!_answered) return;
 
-    if (_currentIndex == widget.questions.length - 1) {
+    if (_currentIndex == _questions.length - 1) {
       setState(() => _finished = true);
       return;
     }
@@ -56,13 +81,7 @@ class _KidsQuestionActivityState extends State<KidsQuestionActivity> {
   }
 
   void _restart() {
-    setState(() {
-      _currentIndex = 0;
-      _score = 0;
-      _selectedAnswer = null;
-      _answered = false;
-      _finished = false;
-    });
+    setState(_startNewRound);
   }
 
   @override
@@ -79,19 +98,19 @@ class _KidsQuestionActivityState extends State<KidsQuestionActivity> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: widget.questions.isEmpty
+        child: _questions.isEmpty
             ? _EmptyActivity(accentColor: widget.accentColor)
             : _finished
                 ? _ActivityFinished(
                     score: _score,
-                    total: widget.questions.length,
+                    total: _questions.length,
                     accentColor: widget.accentColor,
                     onRestart: _restart,
                   )
                 : _ActivityQuestion(
                     question: _currentQuestion,
                     currentIndex: _currentIndex,
-                    total: widget.questions.length,
+                    total: _questions.length,
                     score: _score,
                     selectedAnswer: _selectedAnswer,
                     answered: _answered,

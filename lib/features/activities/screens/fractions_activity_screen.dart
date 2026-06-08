@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/widgets/kids/progress_stars.dart';
 import '../data/fraction_questions.dart';
 import '../models/fraction_question.dart';
+import '../utils/kids_question_selector.dart';
 
 class FractionsActivityScreen extends StatefulWidget {
   const FractionsActivityScreen({super.key});
@@ -20,9 +21,24 @@ class _FractionsActivityScreenState extends State<FractionsActivityScreen> {
   String? _selectedAnswer;
   bool _answered = false;
   bool _finished = false;
+  late List<FractionQuestion> _questions;
 
-  List<FractionQuestion> get _questions => fractionQuestions;
   FractionQuestion get _currentQuestion => _questions[_currentIndex];
+
+  @override
+  void initState() {
+    super.initState();
+    _startNewRound();
+  }
+
+  void _startNewRound() {
+    _questions = selectRandomQuestions(fractionQuestions);
+    _currentIndex = 0;
+    _score = 0;
+    _selectedAnswer = null;
+    _answered = false;
+    _finished = false;
+  }
 
   void _selectAnswer(String answer) {
     if (_answered) return;
@@ -52,13 +68,7 @@ class _FractionsActivityScreenState extends State<FractionsActivityScreen> {
   }
 
   void _restart() {
-    setState(() {
-      _currentIndex = 0;
-      _score = 0;
-      _selectedAnswer = null;
-      _answered = false;
-      _finished = false;
-    });
+    setState(_startNewRound);
   }
 
   @override
