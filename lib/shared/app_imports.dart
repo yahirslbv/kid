@@ -11,6 +11,7 @@ export 'widgets/bot_avatar.dart';
 export 'widgets/kids/kids_feature_card.dart';
 export 'widgets/kids/progress_stars.dart';
 export 'widgets/kids/reward_badge.dart';
+export 'widgets/kids/coming_soon_screen.dart';
 
 // ─── PROVEEDORES DE LÓGICA (PROVIDERS) ───
 export '../features/auth/logic/auth_provider.dart';
@@ -28,6 +29,10 @@ export '../features/chat/screens/chat_screen.dart';
 export '../features/settings/screens/settings_screen.dart';
 export '../features/settings/screens/profile_screen.dart';
 export '../features/kids_home/screens/kids_home_screen.dart';
+export '../features/learning_path/screens/learning_path_screen.dart';
+export '../features/rewards/screens/rewards_screen.dart';
+export '../features/parent_zone/screens/parent_zone_screen.dart';
+export '../features/safe_ai_tutor/screens/safe_ai_tutor_screen.dart';
 
 // ─── PANTALLAS DE ESTADÍSTICA ───
 export '../features/estadistica/screens/estadistica_screen.dart';
